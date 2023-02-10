@@ -89,4 +89,9 @@ fastlane/test_output
 
 iOSInjectionProject/
 
+# Mac file
 .DS_Store
+
+# Sample App Env file
+SwiftPackageKeysSampleApp/.env
+SwiftPackageKeysSampleApp/.env.json
