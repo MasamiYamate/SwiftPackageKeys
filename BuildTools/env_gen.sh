@@ -19,7 +19,7 @@ function generateEnvironmentProperty() {
     value=${keyValue[2]}
     
     response="
-    public var ${key}: String {
+    public static var ${key}: String {
         return \"${value}\"
     }
     "
