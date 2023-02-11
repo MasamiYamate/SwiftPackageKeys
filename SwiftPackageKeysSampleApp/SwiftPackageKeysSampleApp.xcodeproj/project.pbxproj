@@ -14,7 +14,7 @@
 		94568E402997E83500900602 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94568E3F2997E83500900602 /* Assets.xcassets */; };
 		94568E432997E83500900602 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94568E412997E83500900602 /* LaunchScreen.storyboard */; };
 		94568E4E2997F50100900602 /* SwiftPackageKeys in Frameworks */ = {isa = PBXBuildFile; productRef = 94568E4D2997F50100900602 /* SwiftPackageKeys */; };
-		94568E512997F8E800900602 /* SwiftPackageKeys in Frameworks */ = {isa = PBXBuildFile; productRef = 94568E502997F8E800900602 /* SwiftPackageKeys */; };
+		94568E662998032200900602 /* SwiftPackageKeys in Frameworks */ = {isa = PBXBuildFile; productRef = 94568E652998032200900602 /* SwiftPackageKeys */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94568E4E2997F50100900602 /* SwiftPackageKeys in Frameworks */,
-				94568E512997F8E800900602 /* SwiftPackageKeys in Frameworks */,
+				94568E662998032200900602 /* SwiftPackageKeys in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			name = SwiftPackageKeysSampleApp;
 			packageProductDependencies = (
 				94568E4D2997F50100900602 /* SwiftPackageKeys */,
-				94568E502997F8E800900602 /* SwiftPackageKeys */,
+				94568E652998032200900602 /* SwiftPackageKeys */,
 			);
 			productName = SwiftPackageKeysSampleApp;
 			productReference = 94568E332997E83400900602 /* SwiftPackageKeysSampleApp.app */;
@@ -128,7 +128,7 @@
 			);
 			mainGroup = 94568E2A2997E83400900602;
 			packageReferences = (
-				94568E4F2997F8E800900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */,
+				94568E642998032200900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */,
 			);
 			productRefGroup = 94568E342997E83400900602 /* Products */;
 			projectDirPath = "";
@@ -379,7 +379,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		94568E4F2997F8E800900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */ = {
+		94568E642998032200900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MasamiYamate/SwiftPackageKeys";
 			requirement = {
@@ -394,9 +394,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftPackageKeys;
 		};
-		94568E502997F8E800900602 /* SwiftPackageKeys */ = {
+		94568E652998032200900602 /* SwiftPackageKeys */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 94568E4F2997F8E800900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */;
+			package = 94568E642998032200900602 /* XCRemoteSwiftPackageReference "SwiftPackageKeys" */;
 			productName = SwiftPackageKeys;
 		};
 /* End XCSwiftPackageProductDependency section */

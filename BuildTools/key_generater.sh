@@ -1,6 +1,3 @@
-# Extension file name
-EXTENSION_NAME="SwiftPackageKeys+Extension.swift"
-
 # File Paths
 PACKAGE_PATH=$1
 PLUGIN_WORK_DIR_PATH=$2
@@ -13,6 +10,10 @@ APP_DIR_PATH=`echo ${APP_PROJECT_PATH%/*}`
 
 DOT_ENV_PATH=${APP_DIR_PATH}/.env
 
+# Extension file name
+EXTENSION_NAME="SwiftPackageKeys+Extension.swift"
+EXTENSION_FILE_PATH="${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+
 function generateEnvironmentProperty() {
     LINE_VALUE=$1
     DOT_ENV_ITEM=(`echo ${LINE_VALUE//=/ }`)
@@ -20,23 +21,21 @@ function generateEnvironmentProperty() {
     CAMEL_CASE_KEY=`echo $RAW_KEY | tr "[:upper:]" "[:lower:]" | awk -F '_' '{ printf $1; for(i=2; i<=NF; i++) {printf toupper(substr($i,1,1)) substr($i,2)}} END {print ""}'`
     VALUE=${DOT_ENV_ITEM[1]}
     RESPONSE="
-    public static var ${CAMEL_CASE_KEY}: String {
-        return \"${VALUE}\"
+    static var ${CAMEL_CASE_KEY}: String {
+        return ${VALUE}
     }
     "
     echo $RESPONSE
 }
 
-extension_code_value="public extension SwiftPackageKeys {
-"
+rm $EXTENSION_FILE_PATH
+
+echo "public extension SwiftPackageKeys { " >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
 
 cat $DOT_ENV_PATH | while read line
 do
 PROPERTY=`generateEnvironmentProperty $line`
-extension_code_value=$extension_code_value$PROPERTY
+echo $PROPERTY >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
 done
 
-extension_code_value="${extension_code_value}
-}"
-
-echo $extension_code_value > "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+echo "}" >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
