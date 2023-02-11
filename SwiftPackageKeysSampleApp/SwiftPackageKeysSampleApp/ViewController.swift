@@ -32,3 +32,14 @@ private extension ViewController {
     
 }
 
+public extension SwiftPackageKeys {
+    public static var keyName: String {
+        return "KEY_VALUE"
+    }
+    public static var keyname2: String {
+        return "KeyValue2"
+    }
+    public static var keyName3: String {
+        return "KeyValue3"
+    }
+}
