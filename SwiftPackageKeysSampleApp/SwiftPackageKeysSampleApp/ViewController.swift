@@ -18,7 +18,7 @@ final class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        showEnvValue()
     }
 
 }
@@ -26,20 +26,9 @@ final class ViewController: UIViewController {
 private extension ViewController {
     
     func showEnvValue() {
- //       valueLabel1.text = SwiftPackageKeys
-//        valueLabel1.text = Swi
+        valueLabel1.text = SwiftPackageKeys.keyName
+        valueLabel2.text = SwiftPackageKeys.keyname2
+        valueLabel3.text = SwiftPackageKeys.keyName3
     }
     
-}
-
-public extension SwiftPackageKeys {
-    public static var keyName: String {
-        return "KEY_VALUE"
-    }
-    public static var keyname2: String {
-        return "KeyValue2"
-    }
-    public static var keyName3: String {
-        return "KeyValue3"
-    }
 }
