@@ -15,11 +15,12 @@ generate_environment_property() {
     
     LINE_VALUE=$1
     DOT_ENV_ITEM=(`echo ${LINE_VALUE//=/ }`)
-    KEY=${DOT_ENV_ITEM[1]}
-    VALUE=${DOT_ENV_ITEM[2]}
+    RAW_KEY=${DOT_ENV_ITEM[0]}
+    VALUE=${DOT_ENV_ITEM[1]}
+    CAMEL_CASE_KEY=`echo $RAW_KEY | tr "[:upper:]" "[:lower:]" | awk -F '_' '{ printf $1; for(i=2; i<=NF; i++) {printf toupper(substr($i,1,1)) substr($i,2)}} END {print ""}'`
     RESPONSE="
-    public static var ${key}: String {
-        return \"${value}\"
+    public static var ${CAMEL_CASE_KEY}: String {
+        return \"${VALUE}\"
     }
     "
     echo $RESPONSE
@@ -31,13 +32,13 @@ generate_swift_package_keys_extension() {
     local PROPERTY
 
     DOT_ENV_PATH=$1
-    
+
     extension_code_value="public extension SwiftPackageKeys {
 "
     cat $DOT_ENV_PATH | while read line
     do
-        echo $line
         PROPERTY=`generate_environment_property $line`
+        echo $PROPERTY
         extension_code_value=$extension_code_value$PROPERTY
     done
         extension_code_value="${extension_code_value}
@@ -55,8 +56,8 @@ fetch_dot_env_path() {
     DERIVED_DATA_PATH=`echo ${PACKAGE_PATH%/*/*/*}`
     INFO_PLIST_PATH=${DERIVED_DATA_PATH}/info.plist
 
-    APP_PROJECT_PATHh=`/usr/libexec/PlistBuddy -c "print WorkspacePath" $INFO_PLIST_PATH`
-    APP_DIR_PATH=`echo ${APP_PROJECT_PATHh%/*}`
+    APP_PROJECT_PATH=`/usr/libexec/PlistBuddy -c "print WorkspacePath" $INFO_PLIST_PATH`
+    APP_DIR_PATH=`echo ${APP_PROJECT_PATH%/*}`
 
     DOT_ENV_PATH=${APP_DIR_PATH}/.env
     echo $DOT_ENV_PATH
