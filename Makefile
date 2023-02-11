@@ -1,2 +1,2 @@
 generate_keys:
-	zsh ${PACKAGE_DIR}/BuildTools/env_gen.sh ${PACKAGE_DIR} ${WORK_DIR}
+	bash ${PACKAGE_DIR}/BuildTools/key_generater.sh ${PACKAGE_DIR} ${WORK_DIR}

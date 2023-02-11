@@ -20,8 +20,5 @@ let package = Package(
             name: "EnvironmentKeyPlugin",
             capability: .buildTool()
         )
-//        .testTarget(
-//            name: "SwiftPackageKeysTests",
-//            dependencies: ["SwiftPackageKeys"]),
     ]
 )
