@@ -56,3 +56,25 @@ When converting to Swift native code, key names are automatically converted to s
 Also, do not enclose both Key and Value in double quotes.
 
 ## Step5: Embed in your app
+
+Build the app once before using Framework.
+Xcode may display the alert in the image below.
+In this case, select "Trust & Enable All".
+
+<img width="296" alt="スクリーンショット 2023-02-13 0 43 47" src="https://user-images.githubusercontent.com/5555537/218321214-6bd49807-c35d-48f0-b4b4-125dca30423a.png">
+
+When you use the framework in your app, first import it in the class you want to use.
+Values ​​obtained from .env can be treated as Static properties of the SwiftPackageKeys class.
+
+```
+import Foundation
+import SwiftPackageKeys // << import framework
+
+final class KeyManager {
+    
+    let prodApiKey: String = SwiftPackageKeys.apikeyprod
+    
+    let devApiKey: String = SwiftPackageKeys.apikeyDev
+    
+}
+```
