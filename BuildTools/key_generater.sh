@@ -14,7 +14,7 @@ DOT_ENV_PATH=${APP_DIR_PATH}/.env
 EXTENSION_NAME="SwiftPackageKeys+Extension.swift"
 EXTENSION_FILE_PATH="${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
 
-generateEnvironmentProperty() {
+function generateEnvironmentProperty() {
     LINE_VALUE=$1
     DOT_ENV_ITEM=(`echo ${LINE_VALUE//=/ }`)
     RAW_KEY=${DOT_ENV_ITEM[0]}
@@ -22,7 +22,7 @@ generateEnvironmentProperty() {
     VALUE=${DOT_ENV_ITEM[1]}
     RESPONSE="
     static var ${CAMEL_CASE_KEY}: String {
-        return ${VALUE}
+        return \"${VALUE}\"
     }
     "
     echo $RESPONSE
@@ -31,6 +31,7 @@ generateEnvironmentProperty() {
 rm $EXTENSION_FILE_PATH
 
 echo "public extension SwiftPackageKeys { " >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+
 
 cat $DOT_ENV_PATH | while read line
 do
