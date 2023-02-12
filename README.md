@@ -52,7 +52,7 @@ apiKeyProd=abcdefg654321
 ```
 
 It doesn't matter if you write in snake case or camel case.
-When converting to Swift native code, key names are automatically converted to snake case.
+When converting to Swift native code, key names are automatically converted to camel case.
 Also, do not enclose both Key and Value in double quotes.
 
 ## Step5: Embed in your app
