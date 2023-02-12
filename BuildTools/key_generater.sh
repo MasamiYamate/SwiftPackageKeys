@@ -14,7 +14,7 @@ DOT_ENV_PATH=${APP_DIR_PATH}/.env
 EXTENSION_NAME="SwiftPackageKeys+Extension.swift"
 EXTENSION_FILE_PATH="${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
 
-function generateEnvironmentProperty() {
+generateEnvironmentProperty() {
     LINE_VALUE=$1
     DOT_ENV_ITEM=(`echo ${LINE_VALUE//=/ }`)
     RAW_KEY=${DOT_ENV_ITEM[0]}
