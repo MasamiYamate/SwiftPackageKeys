@@ -66,7 +66,7 @@ In this case, select "Trust & Enable All".
 When you use the framework in your app, first import it in the class you want to use.
 Values ​​obtained from .env can be treated as Static properties of the SwiftPackageKeys class.
 
-```
+```swift
 import Foundation
 import SwiftPackageKeys // << import framework
 
