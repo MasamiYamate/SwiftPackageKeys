@@ -22,7 +22,7 @@ function generateEnvironmentProperty() {
     VALUE=${DOT_ENV_ITEM[1]}
     RESPONSE="
     static var ${CAMEL_CASE_KEY}: String {
-        return ${VALUE}
+        return \"${VALUE}\"
     }
     "
     echo $RESPONSE
@@ -31,6 +31,7 @@ function generateEnvironmentProperty() {
 rm $EXTENSION_FILE_PATH
 
 echo "public extension SwiftPackageKeys { " >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+
 
 cat $DOT_ENV_PATH | while read line
 do
