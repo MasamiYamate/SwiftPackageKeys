@@ -14,7 +14,8 @@ DOT_ENV_PATH=${APP_DIR_PATH}/.env
 EXTENSION_NAME="SwiftPackageKeys+Extension.swift"
 EXTENSION_FILE_PATH="${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
 
-function generateEnvironmentProperty() {
+# Methods
+generateEnvironmentProperty() {
     LINE_VALUE=$1
     DOT_ENV_ITEM=(`echo ${LINE_VALUE//=/ }`)
     RAW_KEY=${DOT_ENV_ITEM[0]}
@@ -28,15 +29,15 @@ function generateEnvironmentProperty() {
     echo $RESPONSE
 }
 
-rm $EXTENSION_FILE_PATH
+generateEnvironmentClassFile() {
+    rm $EXTENSION_FILE_PATH
+    echo "public extension SwiftPackageKeys { " >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+    cat $DOT_ENV_PATH | while read line
+    do
+    PROPERTY=`generateEnvironmentProperty $line`
+    echo $PROPERTY >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+    done
+    echo "}" >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+}
 
-echo "public extension SwiftPackageKeys { " >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
-
-
-cat $DOT_ENV_PATH | while read line
-do
-PROPERTY=`generateEnvironmentProperty $line`
-echo $PROPERTY >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
-done
-
-echo "}" >> "${PLUGIN_WORK_DIR_PATH}/${EXTENSION_NAME}"
+generateEnvironmentClassFile
