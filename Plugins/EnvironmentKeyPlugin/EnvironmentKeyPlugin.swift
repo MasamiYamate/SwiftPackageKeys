@@ -13,12 +13,10 @@ struct EnvironmentKeyPlugin: BuildToolPlugin {
         return [
             .prebuildCommand(
                 displayName: "Run generate keys",
-                executable: Path("/usr/bin/make"),
+                executable: Path("\(context.package.directory)/KeyGenerator/KeyGenerator"),
                 arguments: [
-                    "generate_keys",
-                    "-C", "\(context.package.directory)",
-                    "PACKAGE_DIR=\(context.package.directory)",
-                    "WORK_DIR=\(context.pluginWorkDirectory.string)"
+                    "\(context.package.directory)",
+                    "\(context.pluginWorkDirectory.string)"
                 ],
                 outputFilesDirectory: context.pluginWorkDirectory
             ),

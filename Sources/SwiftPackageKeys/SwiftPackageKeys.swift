@@ -1,3 +1,1 @@
-public final class SwiftPackageKeys {
-    // Empty
-}
+// Empty

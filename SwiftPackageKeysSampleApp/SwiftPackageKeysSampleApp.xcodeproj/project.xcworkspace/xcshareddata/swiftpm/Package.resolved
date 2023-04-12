@@ -5,8 +5,7 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MasamiYamate/SwiftPackageKeys",
       "state" : {
-        "branch" : "main",
-        "revision" : "a3d02a424e41fa9dabeda9a3326213ef9124e742"
+        "revision" : "e62be85c44dc8a7b83fdb694dfd3baf938d75b29"
       }
     }
   ],
