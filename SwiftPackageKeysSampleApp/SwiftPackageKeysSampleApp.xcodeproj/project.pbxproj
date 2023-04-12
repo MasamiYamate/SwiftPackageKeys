@@ -6,6 +6,31 @@
 	objectVersion = 56;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		948098EE29E71D090024AA61 /* Copy .env */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 948098EF29E71D090024AA61 /* Build configuration list for PBXAggregateTarget "Copy .env" */;
+			buildPhases = (
+				948098F229E71D170024AA61 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Copy .env";
+			productName = "Copy .env";
+		};
+		948098F329E71D300024AA61 /* Copy .env.json */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 948098F429E71D300024AA61 /* Build configuration list for PBXAggregateTarget "Copy .env.json" */;
+			buildPhases = (
+				948098F729E71D330024AA61 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "Copy .env.json";
+			productName = "Copy .env.json";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		94502CEE299945840064ECD1 /* SwiftPackageKeys in Frameworks */ = {isa = PBXBuildFile; productRef = 94502CED299945840064ECD1 /* SwiftPackageKeys */; };
 		94568E372997E83400900602 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94568E362997E83400900602 /* AppDelegate.swift */; };
@@ -116,6 +141,12 @@
 					94568E322997E83400900602 = {
 						CreatedOnToolsVersion = 14.2;
 					};
+					948098EE29E71D090024AA61 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					948098F329E71D300024AA61 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 				};
 			};
 			buildConfigurationList = 94568E2E2997E83400900602 /* Build configuration list for PBXProject "SwiftPackageKeysSampleApp" */;
@@ -135,6 +166,8 @@
 			projectRoot = "";
 			targets = (
 				94568E322997E83400900602 /* SwiftPackageKeysSampleApp */,
+				948098EE29E71D090024AA61 /* Copy .env */,
+				948098F329E71D300024AA61 /* Copy .env.json */,
 			);
 		};
 /* End PBXProject section */
@@ -151,6 +184,43 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		948098F229E71D170024AA61 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm -rf \"${PROJECT_DIR}/.env.json\"\nrm -rf \"${PROJECT_DIR}/.env\"\ncp \"${PROJECT_DIR}/env\" \"${PROJECT_DIR}/.env\"\n";
+		};
+		948098F729E71D330024AA61 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nrm -rf \"${PROJECT_DIR}/.env.json\"\nrm -rf \"${PROJECT_DIR}/.env\"\ncp \"${PROJECT_DIR}/env.json\" \"${PROJECT_DIR}/.env.json\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		94568E2F2997E83400900602 /* Sources */ = {
@@ -355,6 +425,42 @@
 			};
 			name = Release;
 		};
+		948098F029E71D090024AA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 94Z448EL6M;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		948098F129E71D090024AA61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 94Z448EL6M;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		948098F529E71D300024AA61 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 94Z448EL6M;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		948098F629E71D300024AA61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 94Z448EL6M;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -376,6 +482,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		948098EF29E71D090024AA61 /* Build configuration list for PBXAggregateTarget "Copy .env" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				948098F029E71D090024AA61 /* Debug */,
+				948098F129E71D090024AA61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		948098F429E71D300024AA61 /* Build configuration list for PBXAggregateTarget "Copy .env.json" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				948098F529E71D300024AA61 /* Debug */,
+				948098F629E71D300024AA61 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -384,7 +508,7 @@
 			repositoryURL = "https://github.com/MasamiYamate/SwiftPackageKeys";
 			requirement = {
 				kind = revision;
-				revision = 9a9ce6574d374632484f20fd821c06c900f8a343;
+				revision = e62be85c44dc8a7b83fdb694dfd3baf938d75b29;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
