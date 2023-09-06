@@ -11,6 +11,7 @@ func main() throws {
     guard let arguments = KeyGenerateArguments(arguments: ProcessInfo.processInfo.arguments) else {
         throw KeyGenerateError.failedToSetTheArguments
     }
+    Encryption.shared.encryptionKey = UUID().uuidString.replacingOccurrences(of: "-", with: "")
     let loader = EnvLoader(arguments: arguments)
     let envValue = try loader.load()
     let generator = KeyValueGenerator(
@@ -18,6 +19,9 @@ func main() throws {
         envValue: envValue
     )
     try generator.writeCode()
+    let key = Encryption.shared.encryptionKey
+    let encryptionCodeGenerator = EncryptionCodeGenerator(arguments: arguments, key: key)
+    try encryptionCodeGenerator.writeCode()
 }
 
 do {

@@ -1,0 +1,8 @@
+    public static var %@: EnvironmentKey {
+        EnvironmentKey(
+            key: %@,
+            productionValue: %@,
+            stagingValue: %@,
+            debugValue: %@
+        )
+    }

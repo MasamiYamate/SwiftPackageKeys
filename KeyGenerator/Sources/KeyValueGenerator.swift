@@ -9,26 +9,6 @@ import Foundation
 
 final class KeyValueGenerator {
 
-    private let extensionCodeTemplate: String = """
-%@
-
-public final class SwiftPackageKeys {
-%@
-}
-"""
-
-    private let propertyCodeTemplate: String = """
-    public static var %@: EnvironmentKey {
-        EnvironmentKey(
-            key: %@,
-            productionValue: %@,
-            stagingValue: %@,
-            debugValue: %@
-        )
-    }
-
-"""
-
     private let arguments: KeyGenerateArguments
     
     private let envValue: EnvironmentItem
@@ -67,6 +47,34 @@ private extension KeyValueGenerator {
             .appendingPathExtension("swift")
     }
     
+    var extensionCodeTemplatePath: URL {
+        arguments.packageDirectoryPath
+            .appendingPathComponent("KeyGenerator", isDirectory: true)
+            .appendingPathComponent("Sources", isDirectory: true)
+            .appendingPathComponent("Constants", isDirectory: true)
+            .appendingPathComponent("Template")
+            .appendingPathComponent("SwiftPackageKeysExtensionCode")
+            .appendingPathExtension("txt")
+    }
+    
+    var propertyCodeTemplatePath: URL {
+        arguments.packageDirectoryPath
+            .appendingPathComponent("KeyGenerator", isDirectory: true)
+            .appendingPathComponent("Sources", isDirectory: true)
+            .appendingPathComponent("Constants", isDirectory: true)
+            .appendingPathComponent("Template")
+            .appendingPathComponent("PropertyCode")
+            .appendingPathExtension("txt")
+    }
+    
+    var extensionCodeTemplate: String {
+        try! String(contentsOf: extensionCodeTemplatePath)
+    }
+    
+    var propertyCodeTemplate: String {
+        try! String(contentsOf: propertyCodeTemplatePath)
+    }
+    
     func loadExtensionCode() throws -> String {
         let environmentKeyTexts: [String] = envValue.keys.map { environmentKey -> String in
             loadKeysPropertyText(environmentKey: environmentKey)
@@ -88,15 +96,15 @@ private extension KeyValueGenerator {
 
     func loadKeysPropertyText(environmentKey: EnvironmentKey) -> String {
         var productionValueText: String = "nil"
-        if let productionValue = environmentKey.fetchValue(stage: .production) {
+        if let productionValue = environmentKey.fetchRawValue(stage: .production) {
             productionValueText = "\"\(productionValue)\""
         }
         var stagingValueText: String = "nil"
-        if let stagingValue = environmentKey.fetchValue(stage: .staging) {
+        if let stagingValue = environmentKey.fetchRawValue(stage: .staging) {
             stagingValueText = "\"\(stagingValue)\""
         }
         var debugValueText: String = "nil"
-        if let debugValue = environmentKey.fetchValue(stage: .debug) {
+        if let debugValue = environmentKey.fetchRawValue(stage: .debug) {
             debugValueText = "\"\(debugValue)\""
         }
         let key = environmentKey.key
