@@ -131,3 +131,13 @@ final class KeyManager {
     }
 }
 ```
+
+# About encryption of secret information
+
+In this plugin, to make it harder to obtain confidential information through reverse engineering, obfuscation using reversible encryption is performed. After that, the plugin generates code to reference environment variables that can be handled in Swift.
+
+We have adopted the XOR encryption for reversible encryption.
+For the XOR encryption, we use a cryptographic key that is randomly generated for each build. Since we don't use a fixed-value cryptographic key, even if reverse engineering is performed from the IPA file, after obtaining the cryptographic key, there is a need to carry out analysis. This makes the analysis more difficult than when using a fixed-value cryptographic key for encryption and obfuscation.
+
+However, since XOR encryption is reversible and the cryptographic key is also embedded in the binary, it is possible to obtain confidential information by analyzing it.
+Please understand and use it with the knowledge that we are merely obfuscating confidential information to make it harder to obtain through reverse engineering.
