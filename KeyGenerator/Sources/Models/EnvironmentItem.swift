@@ -23,7 +23,8 @@ struct EnvironmentItem: Decodable {
                   let productionValue = parts.last?.trimmingCharacters(in: .whitespacesAndNewlines) else {
                 return nil
             }
-            return EnvironmentKey(key: key, productionValue: productionValue)
+            let encryptedProductionValue = Encryption.shared.encrypt(productionValue)
+            return EnvironmentKey(key: key, productionValue: encryptedProductionValue)
         }
         return EnvironmentItem(keys: keys)
     }

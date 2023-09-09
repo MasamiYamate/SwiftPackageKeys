@@ -14,7 +14,9 @@ let package = Package(
         .target(
             name: "SwiftPackageKeys",
             dependencies: [],
-            plugins: [.plugin(name: "EnvironmentKeyPlugin")]
+            plugins: [
+                .plugin(name: "EnvironmentKeyPlugin")
+            ]
         ),
         .plugin(
             name: "EnvironmentKeyPlugin",
