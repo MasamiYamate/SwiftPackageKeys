@@ -508,7 +508,7 @@
 			repositoryURL = "https://github.com/MasamiYamate/SwiftPackageKeys";
 			requirement = {
 				kind = revision;
-				revision = eef41ee1fc5f433e5340e8c303baa505fa8e6a34;
+				revision = 9f86360eb85c4c738f217b9469bcbe342bcf445b;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
