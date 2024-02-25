@@ -5,6 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftPackageKeys",
+    platforms: [
+        .macOS(.v10_15),
+        .iOS(.v13),
+        .watchOS(.v8),
+        .tvOS(.v15),
+    ],
     products: [
         .library(
             name: "SwiftPackageKeys",
