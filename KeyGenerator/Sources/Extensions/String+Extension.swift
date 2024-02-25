@@ -31,4 +31,8 @@ extension String {
         return self.range(of: pattern, options: .regularExpression) != nil
     }
 
+    public static func randomString(length: UInt16) -> String {
+        let letters = "ABCDEF0123456789"
+        return String((0..<length).compactMap({ _ in letters.randomElement() }))
+    }
 }

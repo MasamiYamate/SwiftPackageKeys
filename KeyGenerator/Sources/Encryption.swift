@@ -24,6 +24,9 @@ final class Encryption {
     func encrypt(_ input: String) -> String {
         let inputValueBytes = [UInt8](input.utf8)
         let encryptionKeyBytes = self.encryptionKeyBytes
+        if inputValueBytes.count > encryptionKeyBytes.count {
+            fatalError("The length of the input value is longer than the encryption key.")
+        }
         let encryptedBytes: [UInt8] = inputValueBytes.enumerated().map { byte in
             byte.element ^ encryptionKeyBytes[byte.offset]
         }
