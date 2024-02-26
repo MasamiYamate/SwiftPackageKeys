@@ -16,15 +16,16 @@ struct EnvironmentItem: Decodable {
     static func load(_ contents: String) throws -> EnvironmentItem {
         let separator: String = "="
         let lines = contents.components(separatedBy: .newlines)
-        let keys: [EnvironmentKey] = lines.compactMap { line -> EnvironmentKey? in
+        var keys: [EnvironmentKey] = []
+        for line in lines {
             let parts: [String] = line.components(separatedBy: separator)
             guard parts.count == 2,
                   let key = parts.first?.trimmingCharacters(in: .whitespacesAndNewlines).lowerCamelCase(),
                   let productionValue = parts.last?.trimmingCharacters(in: .whitespacesAndNewlines) else {
-                return nil
+                throw KeyGenerateError.invalidFormatValueWasFound
             }
-            let encryptedProductionValue = Encryption.shared.encrypt(productionValue)
-            return EnvironmentKey(key: key, productionValue: encryptedProductionValue)
+            let encryptedProductionValue = try Encryption.shared.encrypt(productionValue)
+            keys.append(EnvironmentKey(key: key, productionValue: encryptedProductionValue))
         }
         return EnvironmentItem(keys: keys)
     }
