@@ -28,6 +28,5 @@ func main() throws {
 do {
     try main()
 } catch {
-    print("SwiftPackageKeys Error: \(error.localizedDescription)")
     fatalError(error.localizedDescription)
 }

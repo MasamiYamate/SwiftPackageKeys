@@ -22,7 +22,7 @@ struct EnvironmentItem: Decodable {
             guard parts.count == 2,
                   let key = parts.first?.trimmingCharacters(in: .whitespacesAndNewlines).lowerCamelCase(),
                   let productionValue = parts.last?.trimmingCharacters(in: .whitespacesAndNewlines) else {
-                throw KeyGenerateError.invalidFormatValueWasFound
+                continue
             }
             let encryptedProductionValue = try Encryption.shared.encrypt(productionValue)
             keys.append(EnvironmentKey(key: key, productionValue: encryptedProductionValue))
