@@ -28,5 +28,5 @@ func main() throws {
 do {
     try main()
 } catch {
-    fatalError(error.localizedDescription)
+    fatalError("SwiftPackageKeys KeyGenerate Error: \(error.localizedDescription)")
 }
