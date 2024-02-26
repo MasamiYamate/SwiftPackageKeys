@@ -26,9 +26,54 @@ final class ViewController: UIViewController {
 private extension ViewController {
     
     func showEnvValue() {
-        valueLabel1.text = "Key: \(SwiftPackageKeys.keyName.key) Value: \(SwiftPackageKeys.keyName.value ?? "Empty")"
-        valueLabel2.text = "Key: \(SwiftPackageKeys.keyName2.key) Value: \(SwiftPackageKeys.keyName2.value ?? "Empty")"
-        valueLabel3.text = "Key: \(SwiftPackageKeys.keyName3.key) Value: \(SwiftPackageKeys.keyName3.value ?? "Empty")"
+        valueLabel1.text = """
+        【Key】
+        \(SwiftPackageKeys.keyName.key)
+
+        【Value】
+        \(SwiftPackageKeys.keyName.value ?? "Empty")
+
+        【Debug Value】
+        \(SwiftPackageKeys.keyName.fetchValue(stage: .debug) ?? "Empty")
+
+        【Staging Value】
+        \(SwiftPackageKeys.keyName.fetchValue(stage: .staging) ?? "Empty")
+
+        【Production Value】
+        \(SwiftPackageKeys.keyName.fetchValue(stage: .production) ?? "Empty")
+        """
+        valueLabel2.text = """
+        【Key】
+        \(SwiftPackageKeys.keyName2.key)
+
+        【Value】
+        \(SwiftPackageKeys.keyName2.value ?? "Empty")
+
+        【Debug Value】
+        \(SwiftPackageKeys.keyName2.fetchValue(stage: .debug) ?? "Empty")
+
+        【Staging Value】
+        \(SwiftPackageKeys.keyName2.fetchValue(stage: .staging) ?? "Empty")
+
+        【Production Value】
+        \(SwiftPackageKeys.keyName2.fetchValue(stage: .production) ?? "Empty")
+        """
+        valueLabel3.text = """
+        【Key】
+        \(SwiftPackageKeys.keyName3.key)
+
+        【Value】
+        \(SwiftPackageKeys.keyName3.value ?? "Empty")
+
+        【Debug Value】
+        \(SwiftPackageKeys.keyName3.fetchValue(stage: .debug) ?? "Empty")
+
+        【Staging Value】
+        \(SwiftPackageKeys.keyName3.fetchValue(stage: .staging) ?? "Empty")
+
+        【Production Value】
+        \(SwiftPackageKeys.keyName3.fetchValue(stage: .production) ?? "Empty")
+        """
     }
     
 }
