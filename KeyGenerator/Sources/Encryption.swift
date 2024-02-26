@@ -10,9 +10,18 @@ import Foundation
 
 final class Encryption {
 
-    private enum EncryptionError: Error {
+    private enum EncryptionError: Error, LocalizedError {
         case encryptionFailed
         case decryptionFailed
+
+        var errorDescription: String? {
+            switch self {
+            case .encryptionFailed:
+                return "Encryption Failed"
+            case .decryptionFailed:
+                return "Decryption Failed"
+            }
+        }
     }
 
     static let shared: Encryption = Encryption()
