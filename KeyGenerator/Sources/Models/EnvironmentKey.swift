@@ -34,10 +34,11 @@ public struct EnvironmentKey: Decodable {
             result = productionValue
             #endif
         }
-        guard let result else {
+        guard let result,
+              let decryptedValue = try? Encryption.shared.decrypt(result) else {
             return nil
         }
-        return Encryption.shared.decrypt(result)
+        return decryptedValue
     }
 
     /// environment variable key
@@ -55,10 +56,11 @@ public struct EnvironmentKey: Decodable {
         case .debug:
             result = debugValue
         }
-        guard let result else {
+        guard let result,
+              let decryptedValue = try? Encryption.shared.decrypt(result) else {
             return nil
         }
-        return Encryption.shared.decrypt(result)
+        return decryptedValue
     }
 
     // MARK: Value encrypted by a reversible cipher
@@ -95,14 +97,17 @@ public struct EnvironmentKey: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.key = try values.decode(String.self, forKey: .key)
-        if let productionRawValue: String = try? values.decode(String.self, forKey: .productionValue) {
-            self.productionValue = Encryption.shared.encrypt(productionRawValue)
+        if let productionRawValue = try? values.decode(String.self, forKey: .productionValue),
+           let decryptedProductionValue = try? Encryption.shared.encrypt(productionRawValue) {
+            self.productionValue = decryptedProductionValue
         }
-        if let stagingRawValue: String = try? values.decode(String.self, forKey: .stagingValue) {
-            self.stagingValue = Encryption.shared.encrypt(stagingRawValue)
+        if let stagingRawValue = try? values.decode(String.self, forKey: .stagingValue),
+           let decryptedStagingValue = try? Encryption.shared.encrypt(stagingRawValue) {
+            self.stagingValue = decryptedStagingValue
         }
-        if let debugRawValue: String = try? values.decode(String.self, forKey: .debugValue) {
-            self.debugValue = Encryption.shared.encrypt(debugRawValue)
+        if let debugRawValue = try? values.decode(String.self, forKey: .debugValue),
+           let decryptedDebugValue = try? Encryption.shared.encrypt(debugRawValue) {
+            self.debugValue = decryptedDebugValue
         }
     }
 
