@@ -4,72 +4,71 @@
 //
 //  Created by Masami on 2023/09/07.
 //
-//  Source
-//  https://github.com/KyleBanks/XOREncryption/blob/master/Swift/XOREncryption.swift
 
+import CryptoKit
 import Foundation
 
 final class Encryption {
 
+    private enum EncryptionError: Error, LocalizedError {
+        case encryptionFailed
+        case decryptionFailed
+
+        var errorDescription: String? {
+            switch self {
+            case .encryptionFailed:
+                return "Encryption Failed"
+            case .decryptionFailed:
+                return "Decryption Failed"
+            }
+        }
+    }
+
     static let shared: Encryption = Encryption()
 
-    var encryptionKey: String = "%@"
+    private(set) var encryptionKeyString: String = "%@"
 
-    private var encryptionKeyBytes: [UInt8] {
-        return [UInt8](encryptionKey.utf8)
+    private var encryptionKey: SymmetricKey {
+        SymmetricKey.make(base64EncodedString: encryptionKeyString)
     }
 
     private init() {}
 
-    func encrypt(_ input: String) -> String {
-        let inputValueBytes = [UInt8](input.utf8)
-        let encryptionKeyBytes = self.encryptionKeyBytes
-        if inputValueBytes.count > encryptionKeyBytes.count {
-            fatalError("The length of the input value is longer than the encryption key.")
-        }
-        let encryptedBytes: [UInt8] = inputValueBytes.enumerated().map { byte in
-            byte.element ^ encryptionKeyBytes[byte.offset]
-        }
-        guard let encryptedValue = String(bytes: encryptedBytes, encoding: .utf8),
-              let percentEncodedValue = encryptedValue.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) else {
-            fatalError("Encryption failed")
-        }
-        return percentEncodedValue.base64Encode()
+    func makeSymmetricKey() {
+        encryptionKeyString = SymmetricKey(size: .bits256).toString()
     }
 
-    func decrypt(_ input: String) -> String {
-        let base64DecodedValue = input.base64Decode()
-        guard let encryptedValue = base64DecodedValue.removingPercentEncoding else {
-            fatalError("RemovingPercentEncoding failed")
+    func encrypt(_ input: String) throws -> String {
+        let data = Data(input.utf8)
+        let sealedBox = try AES.GCM.seal(data, using: encryptionKey)
+        guard let encryptedData = sealedBox.combined else {
+            throw EncryptionError.encryptionFailed
         }
-        let encryptedBytes = [UInt8](encryptedValue.utf8)
-        let encryptionKeyBytes = self.encryptionKeyBytes
-        let decrypted: [UInt8] = encryptedBytes.enumerated().map { byte in
-            byte.element ^ encryptionKeyBytes[byte.offset]
-        }
-        guard let decryptedValue = String(bytes: decrypted, encoding: .utf8) else {
-            fatalError("Decryption failed")
+        return encryptedData.base64EncodedString()
+    }
+
+    func decrypt(_ input: String) throws -> String {
+        let encryptedData = Data(base64Encoded: input)!
+        let sealedBox = try AES.GCM.SealedBox(combined: encryptedData)
+        let data = try AES.GCM.open(sealedBox, using: encryptionKey)
+        guard let decryptedValue = String(data: data, encoding: .utf8) else {
+            throw EncryptionError.decryptionFailed
         }
         return decryptedValue
     }
 
 }
 
-private extension String {
-    
-    func base64Encode() -> String {
-        guard let stringData = self.data(using: .utf8) else {
-            fatalError("Base 64 encoding failed")
-        }
-        return stringData.base64EncodedString()
+fileprivate extension SymmetricKey {
+
+    static func make(base64EncodedString: String) -> SymmetricKey {
+        let data = Data(base64Encoded: base64EncodedString)!
+        return SymmetricKey(data: data)
     }
 
-    func base64Decode() -> String {
-        guard let data = Data(base64Encoded: self),
-              let decodedValue = String(data: data, encoding: .utf8) else {
-            fatalError("Base 64 decoding failed")
+    func toString() -> String {
+        withUnsafeBytes { body in
+            Data(body).base64EncodedString()
         }
-        return decodedValue
     }
-
 }

@@ -5,13 +5,14 @@
 //  Created by Masami on 2023/04/03.
 //
 
+import CryptoKit
 import Foundation
 
 func main() throws {
     guard let arguments = KeyGenerateArguments(arguments: ProcessInfo.processInfo.arguments) else {
         throw KeyGenerateError.failedToSetTheArguments
     }
-    Encryption.shared.encryptionKey = String.randomString(length: 256)
+    Encryption.shared.makeSymmetricKey()
     let loader = EnvLoader(arguments: arguments)
     let envValue = try loader.load()
     let generator = KeyValueGenerator(
@@ -19,7 +20,7 @@ func main() throws {
         envValue: envValue
     )
     try generator.writeCode()
-    let key = Encryption.shared.encryptionKey
+    let key = Encryption.shared.encryptionKeyString
     let encryptionCodeGenerator = EncryptionCodeGenerator(arguments: arguments, key: key)
     try encryptionCodeGenerator.writeCode()
 }
@@ -27,5 +28,5 @@ func main() throws {
 do {
     try main()
 } catch {
-    fatalError(error.localizedDescription)
+    fatalError("SwiftPackageKeys KeyGenerate Error: \(error.localizedDescription)")
 }
