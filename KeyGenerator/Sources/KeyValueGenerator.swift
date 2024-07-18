@@ -96,23 +96,22 @@ private extension KeyValueGenerator {
 
     func loadKeysPropertyText(environmentKey: EnvironmentKey) -> String {
         var productionValueText: String = "nil"
-        if let productionValue = environmentKey.fetchRawValue(stage: .production) {
-            productionValueText = "\"\(productionValue)\""
+        if let productionValue = environmentKey.productionRawValue {
+            productionValueText = "\(productionValue)"
         }
         var stagingValueText: String = "nil"
-        if let stagingValue = environmentKey.fetchRawValue(stage: .staging) {
-            stagingValueText = "\"\(stagingValue)\""
+        if let stagingValue = environmentKey.stagingRawValue {
+            stagingValueText = "\(stagingValue)"
         }
         var debugValueText: String = "nil"
-        if let debugValue = environmentKey.fetchRawValue(stage: .debug) {
-            debugValueText = "\"\(debugValue)\""
+        if let debugValue = environmentKey.debugRawValue {
+            debugValueText = "\(debugValue)"
         }
-        let key = environmentKey.key
         return String(
             format: propertyCodeTemplate,
             arguments: [
-                key,
-                "\"\(key)\"",
+                environmentKey.key,
+                "\(environmentKey.keyRawValue)",
                 "\(productionValueText)",
                 "\(stagingValueText)",
                 "\(debugValueText)"

@@ -1,8 +1,8 @@
 //
 //  EnvironmentKey+Extension.swift
-//  
 //
-//  Created by Masami on 2023/09/08.
+//
+//  Created by Masami on 2024/07/25.
 //
 
 import Foundation
@@ -11,22 +11,17 @@ extension EnvironmentKey {
 
     func translateLowerCamelCaseKey() -> EnvironmentKey {
         return EnvironmentKey(
-            key: key.lowerCamelCase(),
-            productionValue: fetchRawValue(stage: .production),
-            stagingValue: fetchRawValue(stage: .staging),
-            debugValue: fetchRawValue(stage: .debug)
+            keyRawValue: key.lowerCamelCase().translateToUInt8Value(),
+            productionRawValue: fetchRawValue(stage: .production)?.translateToUInt8Value(),
+            stagingRawValue: fetchRawValue(stage: .staging)?.translateToUInt8Value(),
+            debugRawValue: fetchRawValue(stage: .debug)?.translateToUInt8Value()
         )
     }
 
-    func fetchRawValue(stage stageFlag: StageFlag) -> String? {
-        switch stageFlag {
-        case .production:
-            return productionValue
-        case .staging:
-            return stagingValue
-        case .debug:
-            return debugValue
-        }
+}
+
+fileprivate extension String {
+    func translateToUInt8Value() -> [UInt8] {
+        return [UInt8](self.utf8)
     }
-    
 }
