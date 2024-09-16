@@ -25,10 +25,11 @@ extension String {
         }
         return lowerCamelCase
     }
+}
 
-    private func isLowerCamelCase() -> Bool {
+private extension String {
+    func isLowerCamelCase() -> Bool {
         let pattern = "^[a-z]+(?:[A-Z][a-z0-9]+)*$"
         return self.range(of: pattern, options: .regularExpression) != nil
     }
-
 }

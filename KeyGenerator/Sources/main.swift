@@ -20,8 +20,7 @@ func main() throws {
         envValue: envValue
     )
     try generator.writeCode()
-    let key = Encryption.shared.encryptionKeyString
-    let encryptionCodeGenerator = EncryptionCodeGenerator(arguments: arguments, key: key)
+    let encryptionCodeGenerator = EncryptionCodeGenerator(arguments: arguments, keyBytes: EncryptionKeyStore.shared.key)
     try encryptionCodeGenerator.writeCode()
 }
 

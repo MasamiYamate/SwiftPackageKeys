@@ -26,16 +26,15 @@ final class Encryption {
 
     static let shared: Encryption = Encryption()
 
-    private(set) var encryptionKeyString: String = "%@"
-
     private var encryptionKey: SymmetricKey {
-        SymmetricKey.make(base64EncodedString: encryptionKeyString)
+        let bytes = EncryptionKeyStore.shared.key.translateToString()
+        return SymmetricKey.make(base64EncodedString: bytes)
     }
 
     private init() {}
 
     func makeSymmetricKey() {
-        encryptionKeyString = SymmetricKey(size: .bits256).toString()
+        EncryptionKeyStore.shared.key = SymmetricKey(size: .bits256).toString().translateToUInt8Value()
     }
 
     func encrypt(_ input: String) throws -> String {
@@ -70,5 +69,20 @@ fileprivate extension SymmetricKey {
         withUnsafeBytes { body in
             Data(body).base64EncodedString()
         }
+    }
+}
+
+fileprivate extension Array where Element == UInt8 {
+    func translateToString() -> String {
+        guard let value = String(bytes: self, encoding: .utf8) else {
+            fatalError()
+        }
+        return value
+    }
+}
+
+fileprivate extension String {
+    func translateToUInt8Value() -> [UInt8] {
+        return [UInt8](self.utf8)
     }
 }
