@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:SwiftPackageKeysSampleAppSPMBase.xcodeproj">
+   </FileRef>
+   <Group
+      location = "group:LocalPackage"
+      name = "LocalPackage">
+      <FileRef
+         location = "group:Package.swift">
+      </FileRef>
+      <Group
+         location = "group:Sources"
+         name = "Sources">
+         <Group
+            location = "group:LocalPackage"
+            name = "LocalPackage">
+            <FileRef
+               location = "group:LocalPackage.swift">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
+</Workspace>

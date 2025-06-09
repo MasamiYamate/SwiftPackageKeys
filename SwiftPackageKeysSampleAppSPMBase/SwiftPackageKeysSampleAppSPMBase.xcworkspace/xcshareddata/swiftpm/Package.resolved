@@ -1,0 +1,14 @@
+{
+  "originHash" : "3b6629365253aad21d09441a38a1f4e47a89ac45c108f1bd09a7b909a1dabc8e",
+  "pins" : [
+    {
+      "identity" : "swiftpackagekeys",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MasamiYamate/SwiftPackageKeys.git",
+      "state" : {
+        "revision" : "6007372403b6affe8daf6a6484bce989280a5b84"
+      }
+    }
+  ],
+  "version" : 3
+}
