@@ -22,13 +22,15 @@ final class EnvLoader: NSObject {
     func load() throws -> EnvironmentItem {
         loadWorkspacePath()
         semaphore.wait()
-        if let envValue = try? fetchEnv() {
-            return envValue
-        } else if let envJsonValue = try? fetchEnvJson() {
-            return envJsonValue
-        } else {
-            throw KeyGenerateError.invalidFormatValueWasFound
-        }
+        let envJsonValue = try fetchEnvJson()
+        return envJsonValue
+//        if let envValue = try? fetchEnv() {
+//            return envValue
+//        } else if let envJsonValue = try fetchEnvJson() {
+//            return envJsonValue
+//        } else {
+//            throw KeyGenerateError.invalidFormatValueWasFound
+//        }
     }
 
 }
@@ -60,7 +62,6 @@ private extension EnvLoader {
     }
 
     var infoPlistPath: URL {
-        fatalError("👹\(derivedDataPath)")
         derivedDataPath
             .appendingPathComponent("info")
             .appendingPathExtension("plist")

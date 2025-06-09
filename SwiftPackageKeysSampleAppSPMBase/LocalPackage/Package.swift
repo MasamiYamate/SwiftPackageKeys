@@ -14,7 +14,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/MasamiYamate/SwiftPackageKeys.git",
-            revision: "6007372403b6affe8daf6a6484bce989280a5b84"
+            revision: "904bb11868bdd06d13216c3296b1a4e33ff69cb7"
         )
     ],
     targets: [
