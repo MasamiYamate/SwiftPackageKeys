@@ -72,7 +72,7 @@ private extension EnvLoader {
     }
 
     var envJsonFilePath: URL? {
-        print("👹\(workspacePath)")
+        fatalError("👹\(workspacePath)")
         return workspacePath?.appendingPathComponent(".env.json")
     }
 
