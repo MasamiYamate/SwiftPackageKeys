@@ -22,15 +22,13 @@ final class EnvLoader: NSObject {
     func load() throws -> EnvironmentItem {
         loadWorkspacePath()
         semaphore.wait()
-        let envJsonValue = try fetchEnvJson()
-        return envJsonValue
-//        if let envValue = try? fetchEnv() {
-//            return envValue
-//        } else if let envJsonValue = try fetchEnvJson() {
-//            return envJsonValue
-//        } else {
-//            throw KeyGenerateError.invalidFormatValueWasFound
-//        }
+        if let envValue = try? fetchEnv() {
+            return envValue
+        } else if let envJsonValue = try? fetchEnvJson() {
+            return envJsonValue
+        } else {
+            throw KeyGenerateError.invalidFormatValueWasFound
+        }
     }
 
 }
@@ -40,7 +38,7 @@ extension EnvLoader: XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         let value = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         let filePath = URL(fileURLWithPath: value)
-        guard filePath.pathExtension == "xcodeproj" else {
+        guard filePath.pathExtension == "xcodeproj" || filePath.pathExtension == "xcworkspace" else {
             return
         }
         workspacePath = filePath.deletingLastPathComponent()
@@ -72,8 +70,7 @@ private extension EnvLoader {
     }
 
     var envJsonFilePath: URL? {
-        fatalError("👹\(workspacePath)")
-        return workspacePath?.appendingPathComponent(".env.json")
+        workspacePath?.appendingPathComponent(".env.json")
     }
 
     func loadWorkspacePath() {
