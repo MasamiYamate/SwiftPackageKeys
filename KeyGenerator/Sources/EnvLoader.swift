@@ -60,6 +60,7 @@ private extension EnvLoader {
     }
 
     var infoPlistPath: URL {
+        fatalError("👹\(derivedDataPath)")
         derivedDataPath
             .appendingPathComponent("info")
             .appendingPathExtension("plist")
