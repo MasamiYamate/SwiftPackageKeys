@@ -72,7 +72,8 @@ private extension EnvLoader {
     }
 
     var envJsonFilePath: URL? {
-        workspacePath?.appendingPathComponent(".env.json")
+        print("👹\(workspacePath)")
+        return workspacePath?.appendingPathComponent(".env.json")
     }
 
     func loadWorkspacePath() {
